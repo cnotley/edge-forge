@@ -1,0 +1,12 @@
+# Build artifacts from Cargo
+/target
+/debug
+
+# Backup files from rustfmt
+**/*.rs.bk
+
+# Debugging info files on Windows (MSVC builds)
+*.pdb
+
+# Mutation testing outputs (from cargo-mutants)
+**/mutants.out/
