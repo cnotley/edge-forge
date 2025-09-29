@@ -6,4 +6,4 @@ pub mod worker;
 
 pub use coordinator::CoordinatorContext;
 pub use metrics::Metrics;
-pub use queue::{Task, TaskQueue};
+pub use queue::{Task, TaskKind, TaskQueue};
