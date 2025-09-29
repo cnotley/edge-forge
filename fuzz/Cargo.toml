@@ -1,0 +1,18 @@
+[package]
+name = "edgeforge-fuzz"
+edition = "2021"
+publish = false
+
+[dependencies]
+libfuzzer-sys = "0.4"
+arbitrary = { version = "1", features = ["derive"] }
+edgeforge = { path = ".." }
+
+[profile.release]
+debug = true
+
+[[bin]]
+name = "queue_merge"
+path = "fuzz_targets/queue_merge.rs"
+doc = false
+test = false

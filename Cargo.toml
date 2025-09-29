@@ -3,30 +3,48 @@ name = "edgeforge"
 version = "0.1.0"
 edition = "2021"
 
+[features]
+default = []
+raft-consensus = ["raft", "prost"]
+loom-tests = []
+
 [dependencies]
 anyhow = "1.0"
-axum = { version = "0.7", features = ["macros", "json"] }
+axum = { version = "0.7", features = ["macros", "json", "ws"] }
 bincode = "1.3"
+backoff = { version = "0.4", features = ["tokio"] }
 futures = "0.3"
+futures-util = "0.3"
 mdns-sd = "0.11"
 postcard = { version = "1.0", features = ["alloc"] }
 prometheus = "0.13"
+prost = { version = "0.13", optional = true }
 reqwest = { version = "0.12", features = ["json", "rustls-tls"] }
 rand = "0.8"
 rayon = "1.10"
+raft = { version = "0.7", optional = true }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+slab = "0.4"
 slog = "2.7"
 slog-async = "2.8"
 slog-term = "2.9"
 thiserror = "1.0"
 tokio = { version = "1.39", features = ["full"] }
 tokio-stream = "0.1"
+tokio-tungstenite = { version = "0.20", features = ["rustls-tls-native-roots"] }
+tungstenite = { version = "0.20", features = ["rustls-tls-native-roots"], default-features = false }
 tract-core = "0.22"
+crdts = "7.3.2"
+subtle = "2.4"
 
 [dev-dependencies]
 cargo-fuzz = "0.12"
 loom = "0.7"
 proptest = "1.4"
 tokio-test = "0.4"
+tower = "0.5"
+
+[build-dependencies]
+protoc-bin-vendored = "3"
 
