@@ -1,0 +1,62 @@
+{
+  "rubrics": [
+    {
+      "id": "coordinator_endpoints",
+      "weight": 12,
+      "criterion": "Coordinator exposes health, metrics, enqueue, pull/next, complete, and websocket routes that respond with expected status codes under load.",
+      "test_command": "cargo test rubric_coordinator_endpoints --test grade_codex",
+      "status": "passed"
+    },
+    {
+      "id": "worker_long_polling",
+      "weight": 10,
+      "criterion": "Worker nodes discover the coordinator via mDNS (or hints), long-poll /tasks/pull with exponential backoff, and successfully post completions.",
+      "test_command": "cargo test rubric_worker_long_polling --test grade_codex",
+      "status": "passed"
+    },
+    {
+      "id": "crdt_queue_precision",
+      "weight": 10,
+      "criterion": "Task queue tracks TaskKind, CRDT membership, and slab-backed allocations without leaking or duplicating entries during batch pops.",
+      "test_command": "cargo test rubric_crdt_queue_precision --test grade_codex",
+      "status": "passed"
+    },
+    {
+      "id": "raft_replication_feature",
+      "weight": 9,
+      "criterion": "With --features raft-consensus, Raft nodes replicate enqueue/dequeue log entries, maintain leader term, and apply commits to the queue.",
+      "test_command": "cargo test rubric_raft_replication_feature --features raft-consensus --test grade_codex",
+      "status": "failed"
+    },
+    {
+      "id": "metrics_observability",
+      "weight": 8,
+      "criterion": "Prometheus metrics export queue depth, election counts, worker pull latency, and task processing histograms with stable label sets.",
+      "test_command": "cargo test rubric_metrics_observability --test grade_codex",
+      "status": "passed"
+    },
+    {
+      "id": "compute_pipeline_performance",
+      "weight": 7,
+      "criterion": "Rayon-backed compute tasks and tokio-based IO tasks execute without blocking the async runtime and finish within target latency bounds.",
+      "test_command": "cargo test rubric_compute_pipeline_performance --test grade_codex",
+      "status": "passed"
+    },
+    {
+      "id": "cli_simulation_scale",
+      "weight": 6,
+      "criterion": "CLI simulate mode orchestrates multi-node, multi-worker runs with adjustable batch sizes and completes 100+ tasks in under 10 seconds locally.",
+      "test_command": "cargo test rubric_cli_simulation_scale -- --ignored --test grade_codex",
+      "status": "passed"
+    },
+    {
+      "id": "fuzz_hook_registration",
+      "weight": 4,
+      "criterion": "Queue fuzz harness compiles and the crate exposes a fuzz_apply-style log application path for serialized queue entries.",
+      "test_command": "cargo test rubric_fuzz_hook_registration --test grade_codex",
+      "status": "passed"
+    }
+  ],
+  "normalized_score": 0.8636363636363636
+}
+
